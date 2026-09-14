@@ -9,6 +9,7 @@ before a test run starts.
 ```sh
 python -m unittest discover -s tests -v
 python -m src.manifest examples/manifest.json
+printf '%s' '{"cases": [{"name": "piped", "input": 1, "expected": 1}]}' | python -m src.manifest -
 ```
 
 ## Manifest format
@@ -22,3 +23,4 @@ python -m src.manifest examples/manifest.json
 ```
 
 Each case needs a non-empty unique `name`, plus `input` and `expected` fields.
+Use `-` as the path to validate JSON piped through standard input.

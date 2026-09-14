@@ -1,6 +1,8 @@
+from io import StringIO
 import unittest
+from unittest.mock import patch
 
-from src.manifest import validate_manifest
+from src.manifest import load_manifest, validate_manifest
 
 
 class ValidateManifestTests(unittest.TestCase):
@@ -35,6 +37,15 @@ class ValidateManifestTests(unittest.TestCase):
 
     def test_requires_cases(self) -> None:
         self.assertEqual(validate_manifest({}), ["cases must be a non-empty list"])
+
+    def test_loads_manifest_from_standard_input(self) -> None:
+        content = '{"cases": [{"name": "piped", "input": 1, "expected": 1}]}'
+
+        with patch("src.manifest.sys.stdin", StringIO(content)):
+            self.assertEqual(
+                load_manifest("-"),
+                {"cases": [{"name": "piped", "input": 1, "expected": 1}]},
+            )
 
 
 if __name__ == "__main__":
