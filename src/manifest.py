@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -38,8 +39,11 @@ def validate_manifest(data: Mapping[str, Any]) -> list[str]:
 
 def load_manifest(path: str | Path) -> dict[str, Any]:
     """Load one JSON manifest from disk."""
-    with Path(path).open(encoding="utf-8") as handle:
-        data = json.load(handle)
+    if str(path) == "-":
+        data = json.load(sys.stdin)
+    else:
+        with Path(path).open(encoding="utf-8") as handle:
+            data = json.load(handle)
     if not isinstance(data, dict):
         raise ValueError("manifest root must be an object")
     return data
