@@ -1,0 +1,6 @@
+{
+  "cases": [
+    {"name": "addition", "input": [2, 3], "expected": 5},
+    {"name": "empty-list", "input": [], "expected": 0}
+  ]
+}

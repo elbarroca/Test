@@ -1,0 +1,6 @@
+[project]
+name = "test-manifest"
+version = "0.1.0"
+description = "A dependency-free validator for JSON test manifests"
+readme = "README.md"
+requires-python = ">=3.11"
